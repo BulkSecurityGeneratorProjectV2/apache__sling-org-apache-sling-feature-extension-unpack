@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -40,7 +41,7 @@ import org.junit.Test;
 public class TestUnpack {
     @Test
     public void testUnzip() throws IOException {
-        File tmp = File.createTempFile("foo", "dir");
+        File tmp = Files.createTempFile("foo", "dir").toFile();
         tmp.delete();
         Unpack unpack = Unpack.fromMapping("test;default:=true;dir:=\"" + tmp.getPath() + "\";index:=\"Unpack-Index\";key:=binary;value:=1");
         URL url = createZipFile("test1");
@@ -62,7 +63,7 @@ public class TestUnpack {
         return result;
     }
     private URL createZipFile(String base) throws IOException {
-        File tmp = File.createTempFile("foo", ".zip");
+        File tmp = Files.createTempFile("foo", ".zip").toFile();
         tmp.deleteOnExit();
         Manifest mf = new Manifest();
         mf.getMainAttributes().putValue("Manifest-Version", "1");

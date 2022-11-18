@@ -121,7 +121,7 @@ public class Converter {
                 }
             };
 
-            File tmp = File.createTempFile("unpack", ".zip");
+            File tmp = Files.createTempFile("unpack", ".zip").toFile();
 
             try (CloseableHttpClient httpClient = HttpClients.custom().setRetryStrategy(rs).build()) {
                 HttpGet httpGet = new HttpGet(urlString);
